@@ -1,0 +1,24 @@
+# <!-- Display images with checkboxes -->
+<% @encoded_images.each_with_index do |encoded_image, index| %>
+  <div>
+    <input type="checkbox" name="selected_images[]" value="<%= index %>">
+    <img src="data:image/jpeg;base64,<%= encoded_image %>" alt="Image">
+  </div>
+<% end %>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    const checkboxes = document.querySelectorAll('input[type="checkbox"]');
+    
+    checkboxes.forEach(function(checkbox) {
+      checkbox.addEventListener('change', function() {
+        // Handle checkbox change event (you can use AJAX to send data to the server)
+        if (this.checked) {
+          // The image at this index is selected
+          const selectedIndex = this.value;
+          console.log('Image selected:', selectedIndex);
+        }
+      });
+    });
+  });
+</script>

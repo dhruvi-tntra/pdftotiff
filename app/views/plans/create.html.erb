@@ -1,0 +1,15 @@
+<%= form_with(model: @plan, url: plans_path, local: true, multipart: true) do |f| %>
+	<div class="field">
+		<%= f.label :name %>
+		<%= f.text_field :name %>
+	</div>
+
+	<div class="field">
+		<%= f.label :pdf_file %>
+		<%= f.file_field :pdf_file %>
+	</div>
+
+	<div class="actions">
+		<%= f.submit "Upload" %>
+	</div>
+<% end %>

@@ -1,0 +1,97 @@
+<div class="container">
+	<h4>Listing Plans</h4>
+  </div>
+  # <%= link_to 'Create Plan', new_plan_path %>
+    Create your plan
+  </div> <hr/><br/>
+	<tr>
+		<th>Name</th>
+		<th>Filename</th>
+		<th> Pages</th>
+	</tr><br>
+	<% @plans.each do |plan| %>   
+		<tr>   
+			<td><%= plan.name %></td> 
+			<td><%= plan.pdffilename %></td>
+			<td><%= link_to "View", plan_page_path(plan), class: "planview", id: "openPopup"%></td>
+			<button id="openModalBtn_<%= plan.id %>" class="ModalBtn btn btn-primary">Open Modal</button>
+			<br/>
+		</tr>
+	<% end %>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+
+<script>
+  $(document).ready(function() {
+    $('.ModalBtn').click(function() {
+      var planId = parseInt(this.id.split('_')[1]);
+      $.ajax({
+        url: '/plan_pages/'+planId,
+        data: {
+          plan_id: planId
+        },
+        type: 'GET',
+        dataType: 'script', 
+        success: function(response) {
+          console.log('Ajax call succeeded:', response);
+        },
+        error: function(error) {
+          console.error('Ajax call failed:', error);
+        }
+      });
+    });
+    $('#myModal').on('hidden.bs.modal', function () {
+      console.log('Modal is hidden.');
+    });
+    $("#saveButton").on("click", function() {
+      var csrfToken = $('meta[name="csrf-token"]').attr('content');
+      var selectedIndices = [];
+      var planId = parseInt(document.getElementById("myModalLabel").innerHTML.split("-")[0])
+      debugger;
+      $('.selected_pages').each(function () {
+        if ($(this).is(':checked')) {
+          var checkboxIndex = parseInt($(this).attr('id').split('_')[2]);
+          selectedIndices.push(checkboxIndex);
+        }
+      });
+
+      $.ajax({
+        type: "POST",
+        dataType: 'script',
+        url: "/plan_pages/selected_images",
+        data: {
+          planId: planId,
+          selectedIndices: selectedIndices
+        },
+        headers: {
+          "X-CSRF-Token": csrfToken 
+        },
+        success: function(response) {
+          console.log(response);
+        },
+        error: function(error) {
+          console.error("Error:", error);
+        }
+      });
+    });
+  });
+</script>
+
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="myModalLabel"></h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Save">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+      </div>
+      <div class="modal-footer">
+        <button type="button" id="saveButton" class="btn btn-secondary" data-dismiss="modal">Save</button>
+      </div>
+    </div>
+  </div>
+</div>

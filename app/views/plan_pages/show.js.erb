@@ -1,0 +1,11 @@
+
+$('#popupContent').html('<p>This is the updated content from the popup.</p>');
+$('.modal-body').empty();
+$('#myModalLabel').empty();
+$('#myModal').modal('show');
+<% plan = Plan.find params[:plan_id].to_i %>
+$('#myModalLabel').append("<%= params[:plan_id] %>- <%= plan.name %>")
+<% @encoded_images.each_with_index do |encoded_image, index| %>
+  $('.modal-body').append('<%= image_tag "data:image/tiff;base64," + encoded_image , alt: "Image", size: "260x180" %>');
+  $('.modal-body').append('<%= check_box_tag "selected_box_#{index+1}", true, false, class: "selected_pages" %>');
+<% end %>

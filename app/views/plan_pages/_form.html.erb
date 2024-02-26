@@ -1,0 +1,25 @@
+<%= form_with(model: plan) do |form| %>
+	<div class="mb-3">
+		<%= form.label :name, style: "display: block", class: "form-label" %>
+		<%= form.text_field :name, class: "form-control" %>
+		<div style="color: red">
+			<% if plan.errors.include?(:name) %>
+					<% plan.errors.full_messages_for(:name).each do |error_message| %>
+						<%= error_message %>.
+					<% end %>
+			<% end %>
+		</div>
+	</div>
+
+	<div class="mb-3">
+		<%= form.label :description, style: "display: block", class: "form-label" %>
+		<%= form.text_area :description, class: "form-control" %>
+		<div style="color: red">
+			heyyy
+		</div>
+	</div>
+
+	<div class="mb-3">
+		<%= form.submit "Save", class: "btn btn-success btn-block" %>
+	</div>
+<% end %>

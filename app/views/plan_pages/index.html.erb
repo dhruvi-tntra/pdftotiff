@@ -1,0 +1,15 @@
+<div class="container">
+	<h4>Listing Plan Pages</h4>
+	<tr>
+		<th>Name</th>
+		<th>Filename</th>
+		<th> Pages</th>
+	</tr><br>
+	<% @plan_pages.each do |plan| %>   
+		<tr>   
+			<td><%= plan.page_no %></td> 
+			<td><%= link_to "View", plan_page_url(plan) %></td>
+			<br/>
+		</tr>
+    <% end %>   
+</div>
