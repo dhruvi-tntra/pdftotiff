@@ -1,3 +1,10 @@
+GIT
+  remote: https://github.com/mina-deploy/mina.git
+  revision: dc9deda3d678eb4702bc020b1ddd5a7d3456834b
+  specs:
+    mina (1.2.5)
+      rake
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -144,6 +151,11 @@ GEM
     marcel (1.0.2)
     matrix (0.4.2)
     method_source (1.0.0)
+    mina-multistage (1.0.4)
+      mina (~> 1.0)
+    mina-puma (1.1.0)
+      mina (~> 1.2.0)
+      puma (>= 2.13)
     mini_magick (4.12.0)
     mini_mime (1.1.5)
     minitest (5.20.0)
@@ -283,6 +295,9 @@ DEPENDENCIES
   importmap-rails
   jbuilder
   jquery-rails
+  mina!
+  mina-multistage
+  mina-puma
   pg (~> 1.1)
   pry
   puma (>= 5.0)
