@@ -56,6 +56,11 @@ gem 'bootstrap'
 gem 'sassc-rails'
 # gem 'responders'
 
+# Deployment
+gem 'mina', github: 'mina-deploy/mina'
+gem 'mina-multistage', require: false
+gem 'mina-puma', require: false
+
 gem 'jquery-rails'
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
